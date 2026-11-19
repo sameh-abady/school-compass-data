@@ -47,6 +47,10 @@ window.claude = { use: async function(name){
   }
   function boot(){ if(!document.body){ return setTimeout(boot,200); } var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st); refresh().catch(function(){}); }
   if(document.readyState==='complete') boot(); else window.addEventListener('load', boot);
+  // keep data fresh when the app is reopened from the home screen / tab comes back
+  var loadedAt=Date.now();
+  document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='visible' && Date.now()-loadedAt>10*60*1000) location.reload(); });
+  setInterval(function(){ if(document.visibilityState==='visible' && Date.now()-loadedAt>60*60*1000) location.reload(); }, 5*60*1000);
 })();
 </script>"""
 i = html.find('<head>')
