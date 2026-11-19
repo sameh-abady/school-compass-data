@@ -56,6 +56,18 @@ for k in ('s', 'n'):
         n = nl[0]
         items.append({'id': hid('n', k, n.get('d')), 'title': '📰 النشرة الأسبوعية' + who(k), 'body': ' · '.join(T(x) for x in n.get('items', [])[:3])[:180], 'x': '\n'.join('• ' + T(x) for x in n.get('items', []))[:900], 'u': k + '/class'})
 
+# study: scored test papers and a new spelling list
+for x in ((D.get('study') or {}).get('tests') or []):
+    if x.get('score') and x.get('d', '') >= cut:
+        sc = str(x.get('score')) + ('/' + str(x.get('max')) if x.get('max') else '')
+        miss = ', '.join(T(m) for m in (x.get('missed') or [])[:8])
+        items.append({'id': hid('ts', x.get('d'), x.get('subj'), sc), 'title': '📝 نتيجة اختبار' + who('s'), 'body': (T(x.get('t')) + ' · ' + sc)[:180],
+                      'x': (T(x.get('t')) + ' · ' + sc + ('\nالأخطاء: ' + miss if miss else ''))[:900], 'u': 's/study'})
+spl = D.get('spelling') or {}
+if spl.get('words'):
+    items.append({'id': hid('sw', T(spl.get('week')), len(spl['words'])), 'title': '✏️ كلمات Spelling الأسبوع وصلت' + who('s'),
+                  'body': ', '.join(spl['words'][:8])[:180], 'x': ', '.join(spl['words'])[:900], 'u': 's/study'})
+
 # timed basketball events (practices + games) for the "1 hour before" reminder
 bb = []
 for e in D.get('events', []):
