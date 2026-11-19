@@ -28,30 +28,33 @@ for i in range(-1, 45):
         'lunch': lunch.get(d, ''),
     }
 
+def kidu(k, tab, other):
+    return f'{k}/{tab}' if k in ('s', 'n') else other
+
 items = []  # things worth a "new" notification (sent once each)
 cut = (today - dt.timedelta(days=10)).isoformat()
 for a in D.get('alerts', []):
     if a.get('d', '') >= cut:
-        items.append({'id': hid('a', a.get('d'), T(a.get('t'))), 'title': '🔔 ' + T(a.get('t')), 'body': T(a.get('m'))[:180]})
+        items.append({'id': hid('a', a.get('d'), T(a.get('t'))), 'title': '🔔 ' + T(a.get('t')), 'body': T(a.get('m'))[:180], 'x': T(a.get('m'))[:900], 'u': 'inbox'})
 for f in D.get('followups', []) or []:
     if not f.get('due') or f['due'] >= today.isoformat():
-        items.append({'id': hid('f', f.get('due'), T(f.get('t'))), 'title': '📌 مطلوب منكم' + who(f.get('k')), 'body': T(f.get('t'))[:180]})
+        items.append({'id': hid('f', f.get('due'), T(f.get('t'))), 'title': '📌 مطلوب منكم' + who(f.get('k')), 'body': T(f.get('t'))[:180], 'x': (T(f.get('t')) + ('\n' + T(f.get('m')) if f.get('m') else '') + ('\n⏰ ' + f['due'] if f.get('due') else ''))[:900], 'u': kidu(f.get('k'), 'sum', 'inbox')})
 for h in (D.get('library') or {}).get('holds', []) or []:
     if not h.get('by') or h['by'] >= today.isoformat():
-        items.append({'id': hid('l', h.get('t'), h.get('by')), 'title': '📚 كتاب جاهز في المكتبة', 'body': f"{h.get('t','')} — استلموه قبل {h.get('by','')}"})
+        items.append({'id': hid('l', h.get('t'), h.get('by')), 'title': '📚 كتاب جاهز في المكتبة', 'body': f"{h.get('t','')} — استلموه قبل {h.get('by','')}", 'u': 'library'})
 for e in evs:
     d = e.get('d', '')
     if today.isoformat() <= d <= (today + dt.timedelta(days=14)).isoformat():
         tm = (e.get('time') or '').split(' ')[0]
-        items.append({'id': hid('e', d, T(e.get('t')), e.get('time')), 'title': '📅 ' + T(e.get('t')) + who(e.get('k')), 'body': d + (' · ' + tm if tm else '')})
+        items.append({'id': hid('e', d, T(e.get('t')), e.get('time')), 'title': '📅 ' + T(e.get('t')) + who(e.get('k')), 'body': d + (' · ' + tm if tm else ''), 'x': (d + (' · ' + tm if tm else '') + ('\n' + T(e.get('m')) if e.get('m') else ''))[:900], 'u': kidu(e.get('k'), 'sum', 'week')})
 for k in ('s', 'n'):
     for m in ((D.get('teacherLog') or {}).get(k) or [])[:3]:
         if m.get('d', '') >= cut:
-            items.append({'id': hid('m', k, m.get('d'), T(m.get('t'))), 'title': '✉️ ' + (m.get('from') or 'المدرسة') + who(k), 'body': T(m.get('t'))[:180]})
+            items.append({'id': hid('m', k, m.get('d'), T(m.get('t'))), 'title': '✉️ ' + (m.get('from') or 'المدرسة') + who(k), 'body': T(m.get('t'))[:180], 'x': (T(m.get('t')) + ('\n' + T(m.get('m')) if m.get('m') else ''))[:900], 'u': k + '/class'})
     nl = ((D.get('newsletters') or {}).get(k) or [])
     if nl and nl[0].get('d', '') >= cut:
         n = nl[0]
-        items.append({'id': hid('n', k, n.get('d')), 'title': '📰 النشرة الأسبوعية' + who(k), 'body': ' · '.join(T(x) for x in n.get('items', [])[:3])[:180]})
+        items.append({'id': hid('n', k, n.get('d')), 'title': '📰 النشرة الأسبوعية' + who(k), 'body': ' · '.join(T(x) for x in n.get('items', [])[:3])[:180], 'x': '\n'.join('• ' + T(x) for x in n.get('items', []))[:900], 'u': k + '/class'})
 
 # timed basketball events (practices + games) for the "1 hour before" reminder
 bb = []
@@ -64,7 +67,7 @@ for e in D.get('events', []):
     if not tm: continue
     m = T(e.get('m'))
     bb.append({'id': hid('bb', d, e.get('time'), en), 'd': d, 'time': f"{int(tm.group(1)):02d}:{tm.group(2)}",
-               'title': '🏀 ' + T(e.get('t')) + who(e.get('k')), 'body': m[:160]})
+               'title': '🏀 ' + T(e.get('t')) + who(e.get('k')), 'body': m[:160], 'u': 's/bb'})
 
 bal = None
 try:
