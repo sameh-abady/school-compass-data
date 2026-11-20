@@ -46,3 +46,9 @@ Download every image/PDF attachment and read the image itself.
   date is already there), then set `next` to the 1st of the following month with `a:null`.
 - A failed/declined payment or a past-due amount other than $0.00 → add an alert and a followup.
 - Never store card or account numbers (not even the last four digits).
+
+## E. Report cards (`D.reportCards`) — keep as is
+`D.reportCards.{s|n}` (title, scale, terms, att, sections[{name, rows[{t, m[]}]}], comments) is entered by hand from
+the school portal. Never delete or rewrite it. If the parents email a photo of a new term's report card, append the new
+term to `terms`, push its mark onto each row's `m` (use "" when blank), add the comment, and update `D.study.rcWeak`
+with the standards marked 1 or 2 in the newest term.
