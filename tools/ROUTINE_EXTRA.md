@@ -36,3 +36,13 @@ Download every image/PDF attachment and read the image itself.
 ## C. Report cards, FAST results, grades emailed by the school
 - add rows to `D.grades` `[{k:"s", term:{ar,en}, subj:{ar,en}, mark}]` and, for a single test result, also to
   `D.study.tests`. Add an alert `{d, t, m}` saying the report is in.
+
+## D. Monthly tuition (Blackbaud Tuition Management emails)
+`D.tuition = {auto:{ar,en}, paid:[{d, a:"$1,264.25", m:{ar,en}}] (newest first), next:{d, a|null, m:{ar,en}}}`.
+- "Automatic Payment Reminder" (arrives about a week before the 1st): set `next` = `{d:<debit date>, a:<payment due>,
+  m:<one-line breakdown per student + fees>}` and add/update the family event on that date.
+- "Your Automatic Payment Is Being Processed": move `next` into `paid` (use the posted date and the amount from the
+  last reminder), append the same amount to `D.expenses` as `{d, k:"all", t:{ar,en}, a, cat:"fees"}` (skip if that
+  date is already there), then set `next` to the 1st of the following month with `a:null`.
+- A failed/declined payment or a past-due amount other than $0.00 → add an alert and a followup.
+- Never store card or account numbers (not even the last four digits).
