@@ -79,6 +79,20 @@ Content rules:
   3 `spell` words from `D.spelling.words` or the newest `D.study.spellLists`, 2 `religion` or `science` review questions.
 - Every question must have exactly one correct answer; check each `a` before saving. Grade 3 level, no trick questions.
 
+Arabic parent guide (the app shows and prints an Arabic copy so a parent can explain each answer) — required on every
+new quiz:
+- every question gets `qa` (the question in simple Egyptian Arabic; for `spell` the word's Arabic meaning) and `how`
+  (2–4 short Arabic steps that solve it the way the school teaches it). `mc` questions also get `aa` (the right
+  option's meaning in Arabic only). A `lang` quiz gets `passageAr` (the passage in Arabic).
+- write equations with Western digits and `?` for the unknown (`6 × ? = 54`), never an Arabic word inside an equation;
+  keep school terms in English inside the Arabic (bar diagram, equation, fact family, skip counting, evidence).
+- school method, math (enVision): equal groups; skip counting for facts; division through the related multiplication
+  fact / fact family; word problems = bar diagram + equation with `?` + answer with its unit; two-step problems as
+  "Step 1 … Step 2 …". One-step × or ÷ word problems also get
+  `bar:{total:"54"|"?", n:<number of equal groups, max 12>, each:"6"|"?", tl:"muffins in all", el:"in each box"}`.
+- school method, language: go back to the passage and underline the evidence sentence (quote it inside “ ”); vocabulary
+  by context clues (try each option in the sentence); plurals, contractions and compound sentences by naming the rule.
+
 ## F. Word bank (all the words she has to learn)
 - Every spelling list goes into `D.study.spellLists` as `{w, test, name:{ar,en}, words:[…]}` — `name` is the pattern
   (e.g. "Contractions", "Long vowels (VCe)"); include the challenge and high-frequency words printed on the sheet.
