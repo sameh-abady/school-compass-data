@@ -53,18 +53,24 @@ the school portal. Never delete or rewrite it. If the parents email a photo of a
 term to `terms`, push its mark onto each row's `m` (use "" when blank), add the comment, and update `D.study.rcWeak`
 with the standards marked 1 or 2 in the newest term.
 
-## E. Practice tests — two every week (`D.study.quizzes`)
+## E. Practice tests — three every week (`D.study.quizzes`)
 The 3rd grader takes two practice tests a week inside the app: **Wednesday = language & reading** (`kind:"lang"`),
 **Saturday = math & review** (`kind:"math"`). On every run make sure a quiz exists for the next Wednesday and the next
 Saturday (America/Chicago); if one is missing, write it and append it. Never edit or delete a quiz whose date is today or
 in the past (results are stored on the parents' phones by quiz id). Keep at most the newest 30 quizzes.
+
+There is also a third weekly test: **Monday = the other subjects** (`kind:"other"`, id `YYYY-MM-DD-other`, title
+`{ar:"امتحان باقي المواد: Science و Social Studies والدين", en:"Other subjects test: Science, Social Studies & Religion"}`).
+Make sure one exists for the next Monday too. 16 `mc` questions: 6 `science`, 5 `social`, 5 `religion`, taken from what
+class covered in the last weeks (`D.study.weeks` fields `sci` and `rel`, the study guides and the school papers) and
+from `missed` items of religion/science tests. Facts only, one clearly right option, same Arabic guide fields.
 
 Shape: `{id:"YYYY-MM-DD-lang|math", d:"YYYY-MM-DD", kind, title:{ar,en}, passage?:"…", q:[…]}` with 14–16 questions.
 Question shapes (question text is English only, like the school's papers):
 - multiple choice `{s, t:"mc", q:"…", o:["…","…","…","…"], a:<index of the right option 0–3>, why?:"one short sentence"}`
 - number answer `{s:"math", t:"num", q:"7 × 8 = ?", a:"56"}` (word problems too; the answer is a bare number)
 - spelling with audio `{s:"spelling", t:"spell", w:"playground"}`
-`s` is one of `reading | vocab | word | grammar | math | spelling | religion | science`. Vary the position of the right option.
+`s` is one of `reading | vocab | word | grammar | math | spelling | religion | science | social`. Vary the position of the right option.
 
 Content rules:
 - Write ORIGINAL questions in the style of the school's "Progress Check-Up" sheets. Never copy questions or passages from
