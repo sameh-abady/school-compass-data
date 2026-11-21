@@ -58,7 +58,7 @@ for k in ('s', 'n'):
 
 # study: scored test papers and a new spelling list
 for x in ((D.get('study') or {}).get('tests') or []):
-    if x.get('score') and x.get('d', '') >= cut:
+    if x.get('score') and x.get('d', '') >= cut and x.get('src') != 'paper':
         sc = str(x.get('score')) + ('/' + str(x.get('max')) if x.get('max') else '')
         miss = ', '.join(T(m) for m in (x.get('missed') or [])[:8])
         items.append({'id': hid('ts', x.get('d'), x.get('subj'), sc), 'title': '📝 نتيجة اختبار' + who('s'), 'body': (T(x.get('t')) + ' · ' + sc)[:180],
@@ -67,6 +67,18 @@ spl = D.get('spelling') or {}
 if spl.get('words'):
     items.append({'id': hid('sw', T(spl.get('week')), len(spl['words'])), 'title': '✏️ كلمات Spelling الأسبوع وصلت' + who('s'),
                   'body': ', '.join(spl['words'][:8])[:180], 'x': ', '.join(spl['words'])[:900], 'u': 's/study'})
+
+# practice tests: announce on the day they open (and the day after)
+import datetime as _dt
+_td = _dt.date.fromisoformat(today) if isinstance(today, str) else today
+for qz in ((D.get('study') or {}).get('quizzes') or []):
+    try:
+        qd = _dt.date.fromisoformat(qz.get('d', ''))
+    except Exception:
+        continue
+    if 0 <= (_td - qd).days <= 1:
+        items.append({'id': hid('qz', qz.get('id')), 'title': '📝 امتحان تدريب جاهز' + who('s'),
+                      'body': (T(qz.get('title')) + ' · ' + str(len(qz.get('q') or [])) + ' سؤال')[:180], 'u': 's/study'})
 
 # timed basketball events (practices + games) for the "1 hour before" reminder
 bb = []

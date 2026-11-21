@@ -52,3 +52,29 @@ Download every image/PDF attachment and read the image itself.
 the school portal. Never delete or rewrite it. If the parents email a photo of a new term's report card, append the new
 term to `terms`, push its mark onto each row's `m` (use "" when blank), add the comment, and update `D.study.rcWeak`
 with the standards marked 1 or 2 in the newest term.
+
+## E. Practice tests — two every week (`D.study.quizzes`)
+The 3rd grader takes two practice tests a week inside the app: **Wednesday = language & reading** (`kind:"lang"`),
+**Saturday = math & review** (`kind:"math"`). On every run make sure a quiz exists for the next Wednesday and the next
+Saturday (America/Chicago); if one is missing, write it and append it. Never edit or delete a quiz whose date is today or
+in the past (results are stored on the parents' phones by quiz id). Keep at most the newest 30 quizzes.
+
+Shape: `{id:"YYYY-MM-DD-lang|math", d:"YYYY-MM-DD", kind, title:{ar,en}, passage?:"…", q:[…]}` with 14–16 questions.
+Question shapes (question text is English only, like the school's papers):
+- multiple choice `{s, t:"mc", q:"…", o:["…","…","…","…"], a:<index of the right option 0–3>, why?:"one short sentence"}`
+- number answer `{s:"math", t:"num", q:"7 × 8 = ?", a:"56"}` (word problems too; the answer is a bare number)
+- spelling with audio `{s:"spelling", t:"spell", w:"playground"}`
+`s` is one of `reading | vocab | word | grammar | math | spelling | religion | science`. Vary the position of the right option.
+
+Content rules:
+- Write ORIGINAL questions in the style of the school's "Progress Check-Up" sheets. Never copy questions or passages from
+  school papers, textbooks or the web.
+- Take the topics from the newest entries of `D.study.weeks` and `D.study.focus` (what class is doing now) and revisit what
+  she missed: `missed` items in `D.study.tests` and the standards marked 2 in `D.reportCards.s`.
+- **lang**: an original 90–130 word passage in `passage` + 6 `reading` questions (main idea, a detail with evidence,
+  cause/effect, a word in context, sequence or inference, "which sentence shows…"), 4 `vocab` (synonym in a sentence —
+  the unit's words), 4 `word` (contractions, compound words, plurals, vowel patterns — the current word-study skill),
+  2 `grammar`. Reading comprehension is her weakest area: keep those questions careful and unambiguous.
+- **math**: 6 facts (× and ÷, include a missing-number one), 3–4 word problems (one two-step), 1–2 on the current topic,
+  3 `spell` words from `D.spelling.words` or the newest `D.study.spellLists`, 2 `religion` or `science` review questions.
+- Every question must have exactly one correct answer; check each `a` before saving. Grade 3 level, no trick questions.
