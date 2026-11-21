@@ -78,3 +78,9 @@ Content rules:
 - **math**: 6 facts (× and ÷, include a missing-number one), 3–4 word problems (one two-step), 1–2 on the current topic,
   3 `spell` words from `D.spelling.words` or the newest `D.study.spellLists`, 2 `religion` or `science` review questions.
 - Every question must have exactly one correct answer; check each `a` before saving. Grade 3 level, no trick questions.
+
+## F. Word bank (all the words she has to learn)
+- Every spelling list goes into `D.study.spellLists` as `{w, test, name:{ar,en}, words:[…]}` — `name` is the pattern
+  (e.g. "Contractions", "Long vowels (VCe)"); include the challenge and high-frequency words printed on the sheet.
+- Reading vocabulary goes into `D.study.vocab`: `[{name:"<story> (Unit N, wk N)", words:[{w, en:"short meaning", ar:"المعنى"}]}]`
+  — append a group when a new story's vocabulary appears on a paper or in a newsletter. Never delete groups.
