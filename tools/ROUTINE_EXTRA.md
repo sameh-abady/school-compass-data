@@ -90,6 +90,11 @@ new quiz:
 - every question gets `qa` (the question in simple Egyptian Arabic; for `spell` the word's Arabic meaning) and `how`
   (2–4 short Arabic steps that solve it the way the school teaches it). `mc` questions also get `aa` (the right
   option's meaning in Arabic only). A `lang` quiz gets `passageAr` (the passage in Arabic).
+- every question also gets `howEn`: the same steps as `how`, in the same order and the same number of items, in
+  short simple English a third grader understands (the app reads them aloud in its interactive lesson and builds
+  the animation from them). Write every equation in full with digits and the signs × ÷ + − = (`4 × 7 = 28`), list
+  skip counting as numbers separated by commas (`7, 14, 21, 28`), quote passage evidence inside “ ”, write compound
+  words as `rattle + snake`, and spell letters out with spaces (`silent g h`).
 - write equations with Western digits and `?` for the unknown (`6 × ? = 54`), never an Arabic word inside an equation;
   keep school terms in English inside the Arabic (bar diagram, equation, fact family, skip counting, evidence).
 - school method, math (enVision): equal groups; skip counting for facts; division through the related multiplication
