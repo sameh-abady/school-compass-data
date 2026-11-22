@@ -109,3 +109,10 @@ new quiz:
   (e.g. "Contractions", "Long vowels (VCe)"); include the challenge and high-frequency words printed on the sheet.
 - Reading vocabulary goes into `D.study.vocab`: `[{name:"<story> (Unit N, wk N)", words:[{w, en:"short meaning", ar:"المعنى"}]}]`
   — append a group when a new story's vocabulary appears on a paper or in a newsletter. Never delete groups.
+
+## G. Library holds already picked up (`D.libPicked`)
+
+`D.libPicked` lists book titles the family has already picked up from the public library. Never add or keep a
+"last day to pick up" event for a title in that list, even if an older hold email is still in the inbox. Keep the
+"due back" event (src `lib`) until its date has passed; if a later library email gives a new due date for those
+books (renewal), update that event's date.
