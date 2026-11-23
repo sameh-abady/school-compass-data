@@ -5,6 +5,11 @@ All text fields are bilingual `{"ar":"…","en":"…"}` (Arabic = Egyptian). The
 `{tests:[…], weeks:[…], pattern:[…], focus:[…], spellLists:[…]}`. Create missing keys; never delete or reorder
 `D.study.tests` (parents' locally typed scores are keyed by date + subject + title).
 
+## 0. Every run stamps the check time
+The page shows parents how long ago the data was checked, from `D.updated`. So on EVERY run — also when no email is
+new and nothing else changed — set `D.updated` to the current time (America/Chicago ISO) and republish index.html
+(then do step 7 as usual). A run that checked everything and found nothing must still move this time forward.
+
 ## A. Photos the parents email to themselves
 Search (same window as the sweep): mail sent by either parent (`from:me`, or the other parent's address already
 present in the artifact contacts) with `has:attachment` and a subject or body containing the 3rd grader's first name
