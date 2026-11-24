@@ -121,3 +121,9 @@ new quiz:
 "last day to pick up" event for a title in that list, even if an older hold email is still in the inbox. Keep the
 "due back" event (src `lib`) until its date has passed; if a later library email gives a new due date for those
 books (renewal), update that event's date.
+
+## H. Extra reading tests and tricky words
+- Quizzes with `kind:"read"` (ids like `YYYY-MM-DD-read-a`) are extra reading passages written by hand. Never edit,
+  reorder or delete them, and do not count them when checking that next week's three tests exist.
+- `D.study.hard` is a hand-kept list of words the child misspells on her papers. Only append to it (a word she
+  misspells on a new emailed paper); never remove words.
